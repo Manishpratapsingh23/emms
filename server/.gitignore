@@ -1,0 +1,13 @@
+# Security
+.env
+
+# Dependencies
+node_modules/
+__pycache__/
+
+# RAG Generated Files (Local Cache)
+.cache.json
+.faiss_index
+
+# OS files
+.DS_Store
