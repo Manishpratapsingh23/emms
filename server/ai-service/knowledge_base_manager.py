@@ -11,25 +11,7 @@ from typing import List, Dict, Optional
 from PyPDF2 import PdfReader
 from sklearn.metrics.pairwise import cosine_similarity
 
-# Semantic Search Dependencies
-MODEL_DIR = os.path.join(os.path.dirname(__file__), "model_cache", "all-MiniLM-L6-v2")
-
-# Initialize Embedding Model
-model = None
-if SEMANTIC_SEARCH_ENABLED:
-    try:
-        # Check if local model exists, otherwise load from cloud
-        if os.path.exists(MODEL_DIR):
-            print(f"Loading local embedding model from {MODEL_DIR}...")
-            model = SentenceTransformer(MODEL_DIR)
-        else:
-            print("Local model not found. Loading from cloud (all-MiniLM-L6-v2)...")
-            model = SentenceTransformer('all-MiniLM-L6-v2')
-            
-        print("[OK] Embedding model ready.")
-    except Exception as e:
-        print(f"Error loading embedding model: {e}")
-        SEMANTIC_SEARCH_ENABLED = False
+# 1. DEFINE DEPENDENCIES & VARIABLES FIRST
 try:
     import faiss
     from sentence_transformers import SentenceTransformer
@@ -39,17 +21,24 @@ except ImportError:
     print("WARNING: FAISS or Sentence-Transformers not found. Falling back to keyword search.")
 
 # Path setup
+MODEL_DIR = os.path.join(os.path.dirname(__file__), "model_cache", "all-MiniLM-L6-v2")
 KB_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "knowledge_base")
 CACHE_FILE = os.path.join(KB_DIR, ".cache.json")
 INDEX_FILE = os.path.join(KB_DIR, ".faiss_index")
 
-# Initialize Embedding Model
+# 2. INITIALIZE EMBEDDING MODEL
 model = None
 if SEMANTIC_SEARCH_ENABLED:
     try:
-        print("Loading embedding model (all-MiniLM-L6-v2)...")
-        model = SentenceTransformer('all-MiniLM-L6-v2')
-        print("[OK] Embedding model loaded.")
+        # Prioritize local cache
+        if os.path.exists(MODEL_DIR):
+            print(f"Loading local embedding model from {MODEL_DIR}...")
+            model = SentenceTransformer(MODEL_DIR)
+        else:
+            print("Local model not found. Loading from cloud (all-MiniLM-L6-v2)...")
+            model = SentenceTransformer('all-MiniLM-L6-v2')
+            
+        print("[OK] Embedding model ready.")
     except Exception as e:
         print(f"Error loading embedding model: {e}")
         SEMANTIC_SEARCH_ENABLED = False
