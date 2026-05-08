@@ -16,6 +16,10 @@ const Departments = () => {
   const [deptEmployees, setDeptEmployees] = useState([]);
   const [employeesLoading, setEmployeesLoading] = useState(false);
   
+  const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [messageContent, setMessageContent] = useState('');
+  
   const [formData, setFormData] = useState({
     name: '',
     description: ''
@@ -89,6 +93,20 @@ const Departments = () => {
     } finally {
       setEmployeesLoading(false);
     }
+  };
+
+  const handleMessageClick = (emp) => {
+    setSelectedEmployee(emp);
+    setMessageContent('');
+    setIsMessageModalOpen(true);
+  };
+
+  const handleSendMessage = (e) => {
+    e.preventDefault();
+    // Simulate sending message API call
+    toast.success(`Message sent to ${selectedEmployee?.name}`);
+    setIsMessageModalOpen(false);
+    setMessageContent('');
   };
 
   const resetForm = () => {
@@ -236,12 +254,12 @@ const Departments = () => {
                     </div>
                     <div>
                       <span className="text-gray-500 block text-xs uppercase tracking-wider mb-1">Action</span>
-                      <a 
-                        href={`mailto:${emp.email}?subject=Message from HR`}
-                        className="inline-flex items-center gap-1 text-[var(--color-primary)] hover:underline font-medium"
+                      <button 
+                        onClick={() => handleMessageClick(emp)}
+                        className="inline-flex items-center gap-1 text-[var(--color-primary)] hover:underline font-medium bg-transparent border-none p-0 cursor-pointer"
                       >
                         <FiMail size={14}/> Message
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -258,6 +276,38 @@ const Departments = () => {
             Close
           </button>
         </div>
+      </Modal>
+
+      <Modal 
+        isOpen={isMessageModalOpen} 
+        onClose={() => setIsMessageModalOpen(false)} 
+        title={`Send Message to ${selectedEmployee?.name}`}
+      >
+        <form onSubmit={handleSendMessage} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+            <textarea
+              required
+              rows="4"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[var(--color-primary)]"
+              value={messageContent}
+              onChange={(e) => setMessageContent(e.target.value)}
+              placeholder={`Type your message to ${selectedEmployee?.name}...`}
+            ></textarea>
+          </div>
+          <div className="pt-4 flex justify-end gap-3">
+            <button 
+              type="button" 
+              onClick={() => setIsMessageModalOpen(false)} 
+              className="btn hover:bg-gray-100 border border-gray-300 text-gray-700"
+            >
+              Cancel
+            </button>
+            <button type="submit" className="btn btn-primary flex items-center gap-2">
+              <FiMail size={16} /> Send Message
+            </button>
+          </div>
+        </form>
       </Modal>
     </div>
   );

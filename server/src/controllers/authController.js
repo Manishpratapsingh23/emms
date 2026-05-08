@@ -59,3 +59,21 @@ export const updateProfile = async (req, res, next) => {
     next(error);
   }
 };
+
+export const changePassword = async (req, res, next) => {
+  try {
+    const { oldPassword, newPassword } = req.body;
+    if (!oldPassword || !newPassword) {
+      return res.status(400).json({ message: 'Please provide old and new password' });
+    }
+    const user = await User.findById(req.user._id).select('+password');
+    if (!(await user.comparePassword(oldPassword))) {
+      return res.status(401).json({ message: 'Invalid old password' });
+    }
+    user.password = newPassword;
+    await user.save();
+    res.json({ message: 'Password changed successfully' });
+  } catch (error) {
+    next(error);
+  }
+};
