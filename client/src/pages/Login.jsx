@@ -76,10 +76,8 @@ const Login = () => {
               </button>
             </div>
           </form>
-          
-          <div className="mt-6 text-center text-sm text-gray-500">
-            Admin: admin@emms.com / admin123
-          </div>
+
+
         </div>
       </div>
     </div>
