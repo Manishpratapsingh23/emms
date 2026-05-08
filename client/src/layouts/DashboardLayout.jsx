@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
+import AIChatWidget from '../components/AIChatWidget';
 
 const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -21,6 +22,9 @@ const DashboardLayout = () => {
           <Outlet />
         </main>
       </div>
+
+      {/* AI Chat Widget - visible on all pages */}
+      <AIChatWidget />
     </div>
   );
 };

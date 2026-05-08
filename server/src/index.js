@@ -13,6 +13,7 @@ import payrollRoutes from './routes/payrollRoutes.js';
 import attendanceRoutes from './routes/attendanceRoutes.js';
 import announcementRoutes from './routes/announcementRoutes.js';
 import dashboardRoutes from './routes/dashboardRoutes.js';
+import chatRoutes from './routes/chatRoutes.js';
 
 dotenv.config();
 
@@ -36,6 +37,7 @@ app.use('/api/payroll', payrollRoutes);
 app.use('/api/attendance', attendanceRoutes);
 app.use('/api/announcements', announcementRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/chat', chatRoutes);
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
