@@ -5,6 +5,8 @@
 WorkWise is a modern, full-stack, enterprise-grade Employee Management System integrated with a Retrieval-Augmented Generation (RAG) AI assistant. It provides a robust platform for managing human resource operations, including attendance tracking, leave management, and payroll processing, while empowering employees with an intelligent conversational AI to access company policies and knowledge instantly.
 
 **Live Demo:** [https://emms-psi.vercel.app/login](https://emms-psi.vercel.app/login)
+admin creds -- admin@emms.com | admin123
+employee cred -- john@emms.com | password123
 
 ## Key Features
 
