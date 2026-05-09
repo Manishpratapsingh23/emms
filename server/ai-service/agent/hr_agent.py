@@ -79,6 +79,22 @@ TOOL_DEFINITIONS = [
     {
         "type": "function",
         "function": {
+            "name": "get_pending_leaves",
+            "description": "Retrieve a list of all pending leave requests. Use this when the admin asks about pending leaves or to see if there are any.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "leave_type": {
+                        "type": "string",
+                        "description": "Optional filter by leave type (sick, casual, annual)"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
             "name": "generate_payroll",
             "description": "Generate monthly payroll records for all active employees. Creates payroll entries with salary calculations.",
             "parameters": {
@@ -94,14 +110,48 @@ TOOL_DEFINITIONS = [
                     },
                     "bonus": {
                         "type": "number",
-                        "description": "Bonus amount to add for all employees (default: 0)"
+                        "description": "Bonus amount to add (default: 0)"
                     },
                     "deductions": {
                         "type": "number",
-                        "description": "Deduction amount for all employees (default: 0)"
+                        "description": "Deduction amount (default: 0)"
+                    },
+                    "employee_name": {
+                        "type": "string",
+                        "description": "Optional: Name of a specific employee to generate payroll for. Leave empty to generate for all employees."
                     }
                 },
                 "required": ["month", "year"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "update_payroll",
+            "description": "Update the status of an existing payroll record (e.g., mark as paid, unpaid, or approved).",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "employee_name": {
+                        "type": "string",
+                        "description": "Name of the employee (required)"
+                    },
+                    "month": {
+                        "type": "integer",
+                        "description": "Month number (1-12) (required)"
+                    },
+                    "year": {
+                        "type": "integer",
+                        "description": "Year (e.g., 2026) (required)"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": ["paid", "unpaid", "approved"],
+                        "description": "The new status for the payroll (required)"
+                    }
+                },
+                "required": ["employee_name", "month", "year", "status"]
             }
         }
     },
@@ -169,6 +219,38 @@ TOOL_DEFINITIONS = [
     {
         "type": "function",
         "function": {
+            "name": "update_employee",
+            "description": "Update an existing employee's details such as designation, department, or salary.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "employee_id": {
+                        "type": "string",
+                        "description": "The employee's database ID"
+                    },
+                    "employee_name": {
+                        "type": "string",
+                        "description": "The employee's name (used to look them up)"
+                    },
+                    "department": {
+                        "type": "string",
+                        "description": "New department name"
+                    },
+                    "designation": {
+                        "type": "string",
+                        "description": "New designation"
+                    },
+                    "salary": {
+                        "type": "number",
+                        "description": "New salary"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
             "name": "create_department",
             "description": "Create a new department in the organization.",
             "parameters": {
@@ -184,6 +266,27 @@ TOOL_DEFINITIONS = [
                     }
                 },
                 "required": ["name"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "remove_department",
+            "description": "Remove or delete an existing department. DESTRUCTIVE ACTION. Requires confirmation.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "department_name": {
+                        "type": "string",
+                        "description": "Name of the department to delete (required)"
+                    },
+                    "confirmed": {
+                        "type": "boolean",
+                        "description": "Set to true only after admin has confirmed the deletion"
+                    }
+                },
+                "required": ["department_name"]
             }
         }
     },

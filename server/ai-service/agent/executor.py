@@ -22,6 +22,10 @@ from tools.schedule_meeting import schedule_meeting
 from tools.send_announcement import send_announcement
 from tools.attendance_analytics import attendance_analytics
 from tools.generate_report import generate_report
+from tools.update_employee import update_employee
+from tools.remove_department import remove_department
+from tools.get_pending_leaves import get_pending_leaves
+from tools.update_payroll import update_payroll
 
 # Tool registry — maps tool names to functions
 TOOL_REGISTRY = {
@@ -35,6 +39,10 @@ TOOL_REGISTRY = {
     "send_announcement": send_announcement,
     "attendance_analytics": attendance_analytics,
     "generate_report": generate_report,
+    "update_employee": update_employee,
+    "remove_department": remove_department,
+    "get_pending_leaves": get_pending_leaves,
+    "update_payroll": update_payroll,
 }
 
 

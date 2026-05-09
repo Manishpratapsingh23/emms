@@ -14,16 +14,18 @@ def generate_payroll(
     year: int,
     bonus: float = 0,
     deductions: float = 0,
+    employee_name: str = None,
 ) -> dict:
     """
-    Generate payroll for all active employees for the given month/year.
+    Generate payroll for all active employees (or a specific employee) for the given month/year.
     
     Args:
         admin_id: The admin user's ObjectId string
         month: Month number (1-12)
         year: Year (e.g., 2026)
-        bonus: Bonus amount to add for all employees
-        deductions: Deduction amount for all employees
+        bonus: Bonus amount
+        deductions: Deduction amount
+        employee_name: Optional specific employee to generate payroll for
     
     Returns:
         Structured result with payroll generation summary
@@ -37,9 +39,13 @@ def generate_payroll(
         bonus = float(bonus) if bonus else 0
         deductions = float(deductions) if deductions else 0
         
-        # Fetch all active employees with salary > 0
+        query = {"role": "employee", "status": "active", "salary": {"$gt": 0}}
+        if employee_name:
+            query["name"] = {"$regex": employee_name, "$options": "i"}
+
+        # Fetch active employees matching the query
         employees = list(users_col.find(
-            {"role": "employee", "status": "active", "salary": {"$gt": 0}},
+            query,
             {"_id": 1, "name": 1, "salary": 1, "designation": 1}
         ))
         

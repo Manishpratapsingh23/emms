@@ -26,6 +26,10 @@ def validate_tool_input(tool_name: str, args: Dict[str, Any]) -> Dict:
         "attendance_analytics": _validate_attendance_analytics,
         "generate_report": _validate_generate_report,
         "search_company_policies": _validate_search_policies,
+        "update_employee": _validate_update_employee,
+        "remove_department": _validate_remove_department,
+        "get_pending_leaves": _validate_get_pending_leaves,
+        "update_payroll": _validate_update_payroll,
     }
     
     validator = validators.get(tool_name)
@@ -64,6 +68,22 @@ def _validate_generate_payroll(args: Dict) -> Dict:
     return {"valid": len(errors) == 0, "errors": errors}
 
 
+def _validate_get_pending_leaves(args: Dict) -> Dict:
+    return {"valid": True, "errors": []}
+
+
+def _validate_update_payroll(args: Dict) -> Dict:
+    errors = []
+    if not args.get("employee_name"):
+        errors.append("employee_name is required")
+    if not args.get("month"):
+        errors.append("month is required")
+    if not args.get("year"):
+        errors.append("year is required")
+    if not args.get("status"):
+        errors.append("status is required")
+    return {"valid": len(errors) == 0, "errors": errors}
+
 def _validate_add_employee(args: Dict) -> Dict:
     errors = []
     if not args.get("name") or len(str(args["name"]).strip()) < 2:
@@ -82,6 +102,20 @@ def _validate_create_department(args: Dict) -> Dict:
     errors = []
     if not args.get("name") or len(str(args["name"]).strip()) < 2:
         errors.append("Department name is required (min 2 characters)")
+    return {"valid": len(errors) == 0, "errors": errors}
+
+
+def _validate_remove_department(args: Dict) -> Dict:
+    errors = []
+    if not args.get("department_name"):
+        errors.append("department_name is required")
+    return {"valid": len(errors) == 0, "errors": errors}
+
+
+def _validate_update_employee(args: Dict) -> Dict:
+    errors = []
+    if not args.get("employee_id") and not args.get("employee_name"):
+        errors.append("Either employee_id or employee_name is required")
     return {"valid": len(errors) == 0, "errors": errors}
 
 
