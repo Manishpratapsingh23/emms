@@ -101,12 +101,21 @@ const Departments = () => {
     setIsMessageModalOpen(true);
   };
 
-  const handleSendMessage = (e) => {
+  const handleSendMessage = async (e) => {
     e.preventDefault();
-    // Simulate sending message API call
-    toast.success(`Message sent to ${selectedEmployee?.name}`);
-    setIsMessageModalOpen(false);
-    setMessageContent('');
+    if (!messageContent.trim()) return;
+    
+    try {
+      await api.post('/messages', {
+        receiver: selectedEmployee._id,
+        content: messageContent
+      });
+      toast.success(`Message sent to ${selectedEmployee?.name}`);
+      setIsMessageModalOpen(false);
+      setMessageContent('');
+    } catch (error) {
+      toast.error(error.response?.data?.message || 'Failed to send message');
+    }
   };
 
   const resetForm = () => {

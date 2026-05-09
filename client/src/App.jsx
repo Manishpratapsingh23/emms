@@ -13,6 +13,7 @@ import Departments from './pages/Departments';
 import LeaveManagement from './pages/LeaveManagement';
 import PayrollManagement from './pages/PayrollManagement';
 import AttendanceManagement from './pages/AttendanceManagement';
+import AIHRAgent from './pages/AIHRAgent';
 import { Toaster } from 'react-hot-toast';
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
                 <Route path="/leaves" element={<LeaveManagement />} />
                 <Route path="/payroll" element={<PayrollManagement />} />
                 <Route path="/attendance" element={<AttendanceManagement />} />
+                <Route path="/ai-agent" element={<AIHRAgent />} />
               </Route>
             </Route>
           </Route>
