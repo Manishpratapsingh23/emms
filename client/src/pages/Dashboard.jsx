@@ -69,8 +69,18 @@ const AdminDashboard = ({ stats }) => {
   );
 };
 
-const EmployeeDashboard = ({ stats }) => {
+const EmployeeDashboard = ({ stats, messages, setMessages }) => {
   if (!stats) return null;
+  
+  const handleMarkRead = async (id) => {
+    try {
+      await api.patch(`/messages/${id}/read`);
+      setMessages(messages.map(m => m._id === id ? { ...m, read: true } : m));
+    } catch (error) {
+      console.error('Failed to mark as read');
+    }
+  };
+
   return (
     <div className="space-y-6 animate-fade-in">
       <h1 className="text-2xl font-bold text-gray-800">My Dashboard</h1>
@@ -119,6 +129,30 @@ const EmployeeDashboard = ({ stats }) => {
           </div>
         </div>
       </div>
+
+      <div className="card mt-6">
+        <h2 className="text-lg font-semibold text-gray-800 mb-4">Messages from Admin</h2>
+        <div className="space-y-4">
+          {messages?.map(msg => (
+            <div key={msg._id} className={`p-4 rounded-lg border ${msg.read ? 'bg-gray-50 border-gray-100' : 'bg-indigo-50 border-indigo-200'}`}>
+              <div className="flex justify-between items-start mb-2">
+                <span className="font-semibold text-indigo-900">{msg.sender?.name || 'Admin'}</span>
+                <span className="text-xs text-gray-500">{new Date(msg.createdAt).toLocaleString()}</span>
+              </div>
+              <p className="text-gray-700">{msg.content}</p>
+              {!msg.read && (
+                <button 
+                  onClick={() => handleMarkRead(msg._id)}
+                  className="mt-3 text-sm text-indigo-600 hover:text-indigo-800 font-medium"
+                >
+                  Mark as Read
+                </button>
+              )}
+            </div>
+          ))}
+          {!messages?.length && <p className="text-gray-500 text-sm">No messages received.</p>}
+        </div>
+      </div>
     </div>
   );
 };
@@ -126,6 +160,7 @@ const EmployeeDashboard = ({ stats }) => {
 const Dashboard = () => {
   const { user } = useAuth();
   const [stats, setStats] = useState(null);
+  const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -140,12 +175,26 @@ const Dashboard = () => {
         setLoading(false);
       }
     };
-    if (user) fetchStats();
+    
+    const fetchMessages = async () => {
+      if (user?.role !== 'employee') return;
+      try {
+        const res = await api.get('/messages/my-messages');
+        setMessages(res.data.messages || []);
+      } catch (error) {
+        console.error('Failed to fetch messages');
+      }
+    };
+
+    if (user) {
+      fetchStats();
+      fetchMessages();
+    }
   }, [user]);
 
   if (loading) return <div>Loading dashboard...</div>;
 
-  return user?.role === 'admin' ? <AdminDashboard stats={stats} /> : <EmployeeDashboard stats={stats} />;
+  return user?.role === 'admin' ? <AdminDashboard stats={stats} /> : <EmployeeDashboard stats={stats} messages={messages} setMessages={setMessages} />;
 };
 
 export default Dashboard;

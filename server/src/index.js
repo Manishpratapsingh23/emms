@@ -15,6 +15,7 @@ import announcementRoutes from './routes/announcementRoutes.js';
 import dashboardRoutes from './routes/dashboardRoutes.js';
 import chatRoutes from './routes/chatRoutes.js';
 import aiAgentRoutes from './routes/aiAgentRoutes.js';
+import messageRoutes from './routes/messageRoutes.js';
 
 dotenv.config();
 
@@ -40,6 +41,7 @@ app.use('/api/announcements', announcementRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/admin/ai-agent', aiAgentRoutes);
+app.use('/api/messages', messageRoutes);
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });

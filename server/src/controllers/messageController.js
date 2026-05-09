@@ -9,7 +9,7 @@ export const sendMessage = async (req, res) => {
     }
 
     const message = new Message({
-      sender: req.user.userId,
+      sender: req.user._id,
       receiver,
       content
     });
@@ -23,7 +23,7 @@ export const sendMessage = async (req, res) => {
 
 export const getMyMessages = async (req, res) => {
   try {
-    const messages = await Message.find({ receiver: req.user.userId })
+    const messages = await Message.find({ receiver: req.user._id })
       .populate('sender', 'name')
       .sort({ createdAt: -1 })
       .limit(20);

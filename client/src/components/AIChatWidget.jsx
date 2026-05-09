@@ -31,7 +31,7 @@ const AIChatWidget = () => {
       setMessages([{
         id: 'welcome',
         role: 'assistant',
-        content: `Hello **${user?.name || 'there'}**! 👋\n\nI'm the **WorkWise AI Assistant**. I can help you with:\n\n• 📋 **Company Policies** — Leave, attendance, HR rules\n• 💰 **Payroll** — Salary structure, deductions, reimbursements\n• 📅 **Leave Information** — Your balance, how to apply\n• 🏢 **Onboarding** — Getting started at WorkWise\n• 📖 **General HR Questions**\n\nHow can I help you today?`,
+        content: `Hello **${user?.name || 'there'}**! \n\nI'm the **WorkWise AI Assistant**. I can help you with:\n\n• 📋 **Company Policies** — Leave, attendance, HR rules\n• 💰 **Payroll** — Salary structure, deductions, reimbursements\n• 📅 **Leave Information** — Your balance, how to apply\n• 🏢 **Onboarding** — Getting started at WorkWise\n• 📖 **General HR Questions**\n\nHow can I help you today?`,
         timestamp: new Date().toISOString(),
       }]);
       setHasGreeted(true);
@@ -55,7 +55,7 @@ const AIChatWidget = () => {
 
     try {
       const response = await chatService.sendMessage(trimmed);
-      
+
       const botMessage = {
         id: `bot-${Date.now()}`,
         role: 'assistant',
@@ -70,7 +70,7 @@ const AIChatWidget = () => {
       setMessages(prev => [...prev, {
         id: `error-${Date.now()}`,
         role: 'assistant',
-        content: `⚠️ ${errorMsg}`,
+        content: ` ${errorMsg}`,
         isError: true,
         timestamp: new Date().toISOString(),
       }]);
@@ -105,11 +105,10 @@ const AIChatWidget = () => {
       <button
         id="ai-chat-toggle"
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 ${
-          isOpen 
-            ? 'bg-gray-600 hover:bg-gray-700 rotate-0' 
+        className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 ${isOpen
+            ? 'bg-gray-600 hover:bg-gray-700 rotate-0'
             : 'bg-gradient-to-br from-indigo-500 to-indigo-700 hover:from-indigo-600 hover:to-indigo-800 ai-chat-pulse'
-        }`}
+          }`}
         title={isOpen ? 'Close chat' : 'Ask WorkWise AI'}
       >
         {isOpen ? (
@@ -122,7 +121,7 @@ const AIChatWidget = () => {
       {/* Chat Panel */}
       {isOpen && (
         <div className="fixed bottom-24 right-6 z-50 w-[400px] max-w-[calc(100vw-2rem)] h-[540px] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col animate-chat-open overflow-hidden">
-          
+
           {/* Header */}
           <div className="bg-gradient-to-r from-indigo-600 to-indigo-700 px-5 py-4 flex items-center gap-3 flex-shrink-0">
             <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm">
@@ -134,7 +133,7 @@ const AIChatWidget = () => {
                 {isLoading ? '● Thinking...' : '● Online — Ask me anything'}
               </p>
             </div>
-            <button 
+            <button
               onClick={() => setIsOpen(false)}
               className="text-white/70 hover:text-white transition-colors"
             >
@@ -147,30 +146,27 @@ const AIChatWidget = () => {
             {messages.map((msg) => (
               <div
                 key={msg.id}
-                className={`flex gap-2.5 animate-chat-message ${
-                  msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'
-                }`}
+                className={`flex gap-2.5 animate-chat-message ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'
+                  }`}
               >
                 {/* Avatar */}
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                  msg.role === 'user'
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${msg.role === 'user'
                     ? 'bg-indigo-100 text-indigo-600'
                     : msg.isError
-                    ? 'bg-red-100 text-red-600'
-                    : 'bg-teal-100 text-teal-600'
-                }`}>
+                      ? 'bg-red-100 text-red-600'
+                      : 'bg-teal-100 text-teal-600'
+                  }`}>
                   {msg.role === 'user' ? <FiUser size={14} /> : <FiCpu size={14} />}
                 </div>
 
                 {/* Message Bubble */}
                 <div className={`max-w-[80%] ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
-                  <div className={`px-4 py-3 rounded-2xl text-sm leading-relaxed ${
-                    msg.role === 'user'
+                  <div className={`px-4 py-3 rounded-2xl text-sm leading-relaxed ${msg.role === 'user'
                       ? 'bg-indigo-600 text-white rounded-br-md'
                       : msg.isError
-                      ? 'bg-red-50 text-red-700 border border-red-200 rounded-bl-md'
-                      : 'bg-white text-gray-700 border border-gray-200 rounded-bl-md shadow-sm'
-                  }`}>
+                        ? 'bg-red-50 text-red-700 border border-red-200 rounded-bl-md'
+                        : 'bg-white text-gray-700 border border-gray-200 rounded-bl-md shadow-sm'
+                    }`}>
                     <div dangerouslySetInnerHTML={{ __html: formatMessage(msg.content) }} />
                   </div>
 
@@ -190,9 +186,8 @@ const AIChatWidget = () => {
                   )}
 
                   {/* Timestamp */}
-                  <p className={`text-[10px] mt-1 ${
-                    msg.role === 'user' ? 'text-right text-gray-400' : 'text-gray-400'
-                  }`}>
+                  <p className={`text-[10px] mt-1 ${msg.role === 'user' ? 'text-right text-gray-400' : 'text-gray-400'
+                    }`}>
                     {new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </p>
                 </div>
@@ -235,11 +230,10 @@ const AIChatWidget = () => {
               <button
                 onClick={handleSend}
                 disabled={!input.trim() || isLoading}
-                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all flex-shrink-0 ${
-                  input.trim() && !isLoading
+                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all flex-shrink-0 ${input.trim() && !isLoading
                     ? 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-md hover:shadow-lg'
                     : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                }`}
+                  }`}
               >
                 <FiSend size={16} />
               </button>
