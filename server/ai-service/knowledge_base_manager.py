@@ -22,7 +22,9 @@ except ImportError:
 
 # Path setup
 MODEL_DIR = os.path.join(os.path.dirname(__file__), "model_cache", "all-MiniLM-L6-v2")
-KB_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "knowledge_base")
+KB_DIR = os.path.join(os.path.dirname(__file__), "knowledge_base")
+if not os.path.exists(KB_DIR):
+    KB_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "knowledge_base")
 CACHE_FILE = os.path.join(KB_DIR, ".cache.json")
 INDEX_FILE = os.path.join(KB_DIR, ".faiss_index")
 
