@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { BsBuildingFill } from 'react-icons/bs';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -27,7 +27,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <Toaster position="top-right" toastOptions={{ duration: 2000 }} />
+
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center text-[var(--color-primary)]">
           <BsBuildingFill size={48} />

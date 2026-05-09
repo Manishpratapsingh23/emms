@@ -19,7 +19,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <Toaster position="top-right" />
+        <Toaster position="top-right" toastOptions={{ duration: 2000 }} />
         <Routes>
           <Route path="/login" element={<Login />} />
           
