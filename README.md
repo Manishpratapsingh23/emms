@@ -1,10 +1,20 @@
 # WorkWise Employee Management System (EMS)
 
-![WorkWise EMS](https://emms-psi.vercel.app/login) <!-- You can add a real screenshot image link here later -->
+[WorkWise AI](https://emms-psi.vercel.app/login) <!-- You can add a real screenshot image link here later -->
+<img width="960" height="461" alt="em1" src="https://github.com/user-attachments/assets/61a70c4a-40f7-4104-8165-c7de0f9e189b" />
+<img width="321" height="387" alt="em2" src="https://github.com/user-attachments/assets/2237c483-6245-4f94-a3b7-3a2f49c46ff0" />
+<img width="960" height="467" alt="em3" src="https://github.com/user-attachments/assets/443cb7a1-c4d6-45aa-9863-4d750ae1cd23" />
+<img width="960" height="459" alt="em4" src="https://github.com/user-attachments/assets/20b0304c-e15e-433a-8f0a-c78d3946601d" />
+
+
+
 
 WorkWise is a modern, full-stack, enterprise-grade Employee Management System integrated with a Retrieval-Augmented Generation (RAG) AI assistant. It provides a robust platform for managing human resource operations, including attendance tracking, leave management, and payroll processing, while empowering employees with an intelligent conversational AI to access company policies and knowledge instantly.
 
 **Live Demo:** [https://emms-psi.vercel.app/login](https://emms-psi.vercel.app/login)
+
+** admin creds : admin@emms.com || admin123             employee creds : john@emms.com || password123**
+
 
 ## Key Features
 
@@ -129,6 +139,74 @@ You'll need the following environment variables to fully run the application.
 
 **AI Service (`server/ai-service/.env`)**
 * `GROQ_API_KEY`: API key for Groq LLM
+
+** Future Implementation – AI HR Automation Agent
+
+ * WorkWise EMS is designed with scalability in mind and will evolve beyond a traditional Employee Management System into a fully AI-powered HR automation platform.
+
+ * Planned Feature: AI HR Agent (Admin Only)
+
+A future implementation of WorkWise will introduce an advanced AI HR Agent capable of automating administrative and HR workflows using AI Agents, Retrieval-Augmented Generation (RAG), and secure tool/function calling architectures.
+
+Unlike the current AI assistant that primarily answers employee queries using company policies and internal knowledge, the AI HR Agent will be able to intelligently perform administrative actions inside the EMS platform.
+
+Planned Capabilities
+
+The AI HR Agent will support natural language administrative commands such as:
+
+“Generate payroll for this month”
+“Approve all pending leave requests”
+“Add a new employee to Engineering department”
+“Create a new department”
+“Schedule HR meeting tomorrow at 3 PM”
+“Send announcement to all employees”
+“Generate attendance analytics report”
+Key Architecture Goals
+
+The AI HR Agent will include:
+
+AI Tool/Function Calling
+Role-Based Agent Permissions
+Workflow Automation
+RAG-based Policy Understanding
+Secure Action Execution
+Audit Logging & Activity Tracking
+Prompt Injection Protection
+Admin-only AI Controls
+Security Design
+
+The AI HR Agent will strictly follow enterprise-grade security practices:
+
+Only Admin users will have access to automation features
+Employees will only access the standard AI assistant
+Every AI action will require backend validation
+Sensitive operations will include confirmation workflows
+AI tools will never directly expose database access or secrets
+Planned Technology Stack
+
+The future AI HR Agent will utilize:
+
+LangChain Agents
+Groq LLM APIs
+FAISS Vector Database
+FastAPI AI Microservice
+JWT-based RBAC
+MongoDB Audit Logs
+Secure Tool Execution Layer
+Long-Term Vision
+
+The long-term vision for WorkWise EMS is to become:
+
+“An enterprise-grade AI-powered workforce management platform combining modern HR operations, secure AI assistants, RAG-based enterprise knowledge retrieval, and intelligent workflow automation.”
+
+This future implementation aims to simulate real-world enterprise AI systems used in modern organizations and demonstrates advanced AI engineering concepts including:
+
+AI Agents
+RAG Pipelines
+Enterprise AI Security
+Workflow Automation
+Intelligent HR Operations
+Multi-Service Architecture
 
 ## License
 
