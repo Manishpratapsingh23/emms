@@ -8,7 +8,9 @@ import {
   FiDollarSign, 
   FiClock, 
   FiSpeaker,
-  FiBox
+  FiBox,
+  FiCpu,
+  FiMessageCircle
 } from 'react-icons/fi';
 import { BsBuildingFill } from 'react-icons/bs';
 
@@ -24,6 +26,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     { name: 'Payroll', path: '/payroll', icon: FiDollarSign },
     { name: 'Attendance', path: '/attendance', icon: FiClock },
     { name: 'Announcements', path: '/announcements', icon: FiSpeaker },
+    { name: 'AI HR Agent', path: '/ai-agent', icon: FiCpu, highlight: true },
   ] : [
     { name: 'Dashboard', path: '/dashboard', icon: FiGrid },
     { name: 'My Leaves', path: '/my-leaves', icon: FiCalendar },
@@ -60,11 +63,17 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                 key={item.name}
                 to={item.path}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium transition-colors ${
-                    isActive 
-                      ? 'bg-indigo-50 text-[var(--color-primary)]' 
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                  }`
+                  item.highlight
+                    ? `flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium transition-all ${
+                        isActive
+                          ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md'
+                          : 'text-indigo-600 bg-indigo-50 hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 hover:text-white hover:shadow-md border border-indigo-200 hover:border-transparent'
+                      }`
+                    : `flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium transition-colors ${
+                        isActive 
+                          ? 'bg-indigo-50 text-[var(--color-primary)]' 
+                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                      }`
                 }
               >
                 <item.icon size={20} />
