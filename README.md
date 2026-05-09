@@ -1,12 +1,20 @@
 # WorkWise Employee Management System (EMS)
 
-![WorkWise EMS](https://emms-psi.vercel.app/login) <!-- You can add a real screenshot image link here later -->
+[WorkWise AI](https://emms-psi.vercel.app/login) <!-- You can add a real screenshot image link here later -->
+<img width="960" height="461" alt="em1" src="https://github.com/user-attachments/assets/61a70c4a-40f7-4104-8165-c7de0f9e189b" />
+<img width="321" height="387" alt="em2" src="https://github.com/user-attachments/assets/2237c483-6245-4f94-a3b7-3a2f49c46ff0" />
+<img width="960" height="467" alt="em3" src="https://github.com/user-attachments/assets/443cb7a1-c4d6-45aa-9863-4d750ae1cd23" />
+<img width="960" height="459" alt="em4" src="https://github.com/user-attachments/assets/20b0304c-e15e-433a-8f0a-c78d3946601d" />
+
+
+
 
 WorkWise is a modern, full-stack, enterprise-grade Employee Management System integrated with a Retrieval-Augmented Generation (RAG) AI assistant. It provides a robust platform for managing human resource operations, including attendance tracking, leave management, and payroll processing, while empowering employees with an intelligent conversational AI to access company policies and knowledge instantly.
 
 **Live Demo:** [https://emms-psi.vercel.app/login](https://emms-psi.vercel.app/login)
-admin creds -- admin@emms.com | admin123
-employee cred -- john@emms.com | password123
+
+** admin creds : admin@emms.com || admin123             employee creds : john@emms.com || password123**
+
 
 ## Key Features
 
